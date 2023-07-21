@@ -27,7 +27,9 @@ EventService.getEventById(Number(props.id))
         <h1>
             Information
         </h1>
-        
+        <div id="nav">
+          <router-link :to="{ name: 'event-edit' , params:{id} }">Edit</router-link>
+        </div>
         <RouterView :event = "event" ></RouterView>
     </div>
 </template>

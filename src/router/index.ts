@@ -6,6 +6,9 @@ import NotFoundView from '@/views/NotFoundView.vue'
 import NetworkErrorView from '@/views/NetworkErrorView.vue'
 import AirlineDetailView from '@/views/event/AirlineDetailView.vue'
 import AirlineLayoutView from '@/views/event/AirlineLayoutView.vue'
+import EventEditView from '@/views/event/EventEditView.vue'
+import NProgress from 'nprogress'
+import EventRegisterView from '@/views/event/EventRegisterView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +47,18 @@ const router = createRouter({
           name: 'event-detail',
           component: EventDetailView,
           props: true
+        },
+        {
+          path: 'edit',
+          name: 'event-edit',
+          component: EventEditView,
+          props: true
+        },
+        {
+          path: 'register',
+          name: 'event-register',
+          component: EventRegisterView,
+          props: true
         }
       ]
     },
@@ -63,7 +78,20 @@ const router = createRouter({
       component: NotFoundView,
       props: true
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if(savedPosition){
+      return savedPosition
+    }else{
+      return { top: 0 }
+    }
+  }
+})
+router.beforeEach(() => {
+  NProgress.start()
 })
 
+router.afterEach(() => {
+  NProgress.done()
+})
 export default router
